@@ -28,7 +28,7 @@ pipeline {
 				sh 'echo "hello world"'
            		 }
 		}
-		 parallel{
+		parallel{
       			stage('job1'){
         			steps{
           				sh 'echo "I am in job1"'
@@ -39,6 +39,6 @@ pipeline {
           				sh 'echo "I am in job 2"'
         			}  
       			}
-   		 }  
+   		}  
 	}
 }
