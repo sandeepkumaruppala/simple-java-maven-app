@@ -1,5 +1,5 @@
 pipeline {
-  agent { node {linux-agent} 'maven' } 
+  agent { lable 'maven' } 
   stages {
     stage('build') {
       steps {
