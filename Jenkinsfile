@@ -33,6 +33,11 @@ pipeline {
                 echo 'Building docker image...!!'
                 sh 'docker build -t $image_tag .'
             }
+			post {
+				always {
+					junit 'target/surefire-reports/*.xml'
+				}
+			}
     }
 	stage('Push image'){
 				agent any
@@ -68,10 +73,5 @@ pipeline {
                 }
         }
   }
-  post {
-        always {
-            junit 'target/surefire-reports/*.xml'
-        }
-    }
 
 }
