@@ -5,7 +5,7 @@ pipeline {
         app = "java_test"
     }
   stages {
-    stage('build') {
+    stage('compile and package') {
 		agent {
 			docker {
 				image 'maven:3-alpine'
@@ -27,7 +27,7 @@ pipeline {
         sh 'mvn test'
       }
     }
-	stage('Build image') {
+	stage('Build Docker image') {
 			agent any
             steps {
                 echo 'Building docker image...!!'
