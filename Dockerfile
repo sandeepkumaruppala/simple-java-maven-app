@@ -1,4 +1,4 @@
-FROM java:8
+FROM openjdk:8u212-jdk-alpine3.9
 WORKDIR /
 ADD target/my-app-1.0-SNAPSHOT.jar HelloWorld.jar
 EXPOSE 8080
