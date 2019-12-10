@@ -1,9 +1,8 @@
 pipeline {
-  
   agent none
   environment{
-        image_tag = "amitp30/nodeapp:node-test"
-        app = "node_test"
+        image_tag = "amitp30/java:app-test"
+        app = "java_test"
     }
   stages {
     stage('build') {
@@ -29,12 +28,14 @@ pipeline {
       }
     }
 	stage('Build image') {
+			agent any
             steps {
                 echo 'Building docker image...!!'
                 sh 'docker build -t $image_tag .'
             }
     }
 	stage('Push image'){
+				agent any
                 steps{
                         script{
                                 withDockerRegistry(credentialsId: 'docker-hub-amitp30', url: '') {
@@ -44,6 +45,7 @@ pipeline {
                 }
         }
         stage('Anchore_Security_Scan'){
+				agent any
                 steps{
                         echo 'keep ancore scanner here'
                         sh 'echo "$image_tag" ${WORKSPACE}/Dockerfile > anchore_images'
@@ -51,11 +53,13 @@ pipeline {
                 }
         }
         stage('deploy'){
+				agent any
                 steps{
                         sh 'docker run -dit -p 8080:8080 --name $app $image_tag'
                 }
         }
         stage('Clean_up'){
+				agent any
                 input {
                                  message 'please provide approval for cleaning_up the application'
                         }
