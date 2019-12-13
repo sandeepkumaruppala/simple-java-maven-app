@@ -63,6 +63,12 @@ pipeline {
                         sh 'docker run -dit -p 8080:8080 --name $app $image_tag'
                 }
         }
+        stage('e2e-tests'){
+				agent any
+                steps{
+                        sh 'echo "add end to end test here"'
+                }
+        }
         stage('Clean_up'){
 				agent any
                 input {
