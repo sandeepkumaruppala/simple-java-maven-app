@@ -16,7 +16,7 @@ pipeline {
         sh 'mvn -B -DskipTests clean package'
       }
     }
-    stage('test') {
+    stage('unit_testing') {
 	  agent {
 			docker {
 				image 'maven:3-alpine'
