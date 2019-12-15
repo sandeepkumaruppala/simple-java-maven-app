@@ -23,9 +23,14 @@ pipeline {
 				args '-v /root/.m2:/root/.m2'
 			}
 		}
-      steps {
-        sh 'mvn test'
-      }
+    	  steps {
+        	sh 'mvn test'
+     	 }	
+	post {
+		always {
+			junit 'target/surefire-reports/*.xml'
+			}
+	     }
     }
 	stage('Build Docker image') {
 			agent any
@@ -33,11 +38,6 @@ pipeline {
                 echo 'Building docker image...!!'
                 sh 'docker build -t $image_tag .'
             }
-			post {
-				always {
-					junit 'target/surefire-reports/*.xml'
-				}
-			}
     }
 	stage('Push image'){
 				agent any
