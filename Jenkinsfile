@@ -51,7 +51,7 @@ pipeline{
                                 label 'bash-docker'
                         }
                         steps{
-                                docker run -dit -p 8080:8080 --name ${app_name} ${image_tag}
+                                sh 'docker run -dit -p 8080:8080 --name ${app_name} ${image_tag}'
                         }
 
                 }
