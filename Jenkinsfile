@@ -34,9 +34,7 @@ pipeline{
                         }
                 }
                 stage('build_docker'){
-                        agent{
-                                label 'bash-docker'
-                        }
+                        agent any
                         steps{
                                 sh 'docker build -t ${image_tag} .'
                                 script{
@@ -47,18 +45,14 @@ pipeline{
                         }
                 }
                 stage('deploy'){
-                        agent{
-                                label 'bash-docker'
-                        }
+                        agent any
                         steps{
                                 sh 'docker run -dit -p 8080:8080 --name ${app_name} ${image_tag}'
                         }
 
                 }
                 stage('clean_up'){
-                        agent{
-                                label 'bash-docker'
-                        }
+                        agent any
                          input{
                                       message 'please approve to cleanup env'
                               } 
